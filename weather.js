@@ -25,9 +25,21 @@ const getWeatherDataFromApi = async () => {
     // const response = await fetch.get(url).then(response => response.json());
     const response = await axios.get(url);
     const { name, main, sys, weather } = response.data;
-    console.log(response.data);
+    // console.log(response.data);
     const iconUrl = `https://openweathermap.org/img/wn/${weather[0].icon}@2x.png`;
-
+    const cityListItems = list.querySelectorAll(".city");
+    const cityListItemsArray = Array.from(cityListItems);
+    if (cityListItemsArray.length > 0) {
+        const filteredArray = cityListItemsArray.filter(cityCard => cityCard.querySelector(".city-name span").innerText == name);
+        console.log(filteredArray.length)
+        if (filteredArray.length > 0) {
+            msg.innerText = `You already know the weather for ${name} , Please search for another city 😄`;
+            return;
+        }
+    }   
+    // console.log(cityListItems);  
+//forEach => array, nodelist
+      //map,filter,reduce => array
     const createdLi = document.createElement("li");
     createdLi.classList.add("city");
     const createdLiInnerHTML = `
@@ -37,7 +49,7 @@ const getWeatherDataFromApi = async () => {
             <img class="city-icon" src="${iconUrl}">
             <figcaption>${weather[0].description}</figcaption></figure>`;
       createdLi.innerHTML = createdLiInnerHTML;
-      list.append(createdLi); //append vs prepend
+      list.prepend(createdLi); //append vs prepend ** append=last child
   } catch (error) {}
   form.reset();
 };
