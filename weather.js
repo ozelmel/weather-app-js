@@ -34,6 +34,10 @@ const getWeatherDataFromApi = async () => {
         console.log(filteredArray.length)
         if (filteredArray.length > 0) {
             msg.innerText = `You already know the weather for ${name} , Please search for another city 😄`;
+            setTimeout(() => {
+                msg.innerText = "";
+            }, 5000);
+            form.reset();
             return;
         }
     }   
@@ -50,6 +54,10 @@ const getWeatherDataFromApi = async () => {
             <figcaption>${weather[0].description}</figcaption></figure>`;
       createdLi.innerHTML = createdLiInnerHTML;
       list.prepend(createdLi); //append vs prepend ** append=last child
-  } catch (error) {}
-  form.reset();
+  } catch (error) {
+      msg.innerText = error;
+      setTimeout(() => {
+          msg.innerText = "";
+      }, 5000);
+  }
 };
