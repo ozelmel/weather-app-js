@@ -1,5 +1,5 @@
 
-# Project: Weather Condition App (JS-08)
+# Project: Weather Condition App (JS)
 
 ## Description
 Project aims to display current weather data of searched city around the world with fetching Weather Api data.
